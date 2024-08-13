@@ -115,6 +115,7 @@ sw.get('/listjogadores', function (req, res, next) {
                             pj = await client.query('select codpatente from'
                            + ' tb_jogador_conquista_patente '
                              + 'where nickname = $1', [result.rows[i].nickname])
+                             result.rows[i].patentes = pj.rows;
                         } catch(err){
                             res.status(400).send('{'+err+'}')
                         }
