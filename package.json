@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gabriel0913/cs_prog3_2024_api.git"
+    "url": "git+https://github.com/tarcisiolh/cs_prog3_2024_api.git"
   },
   "keywords": [
     "node",
@@ -19,12 +19,12 @@
     "postgres",
     "pg"
   ],
-  "author": "Gabriel Oliveira",
+  "author": "Tarcísio Luiz Harres de Almeida",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/gabriel0913/cs_prog3_2024_api.git/issues"
+    "url": "https://github.com/tarcisiolh/cs_prog3_2024_api.git/issues"
   },
-  "homepage": "https://github.com/gabriel0913/cs_prog3_2024_api.git#readme",
+  "homepage": "https://github.com/tarcisiolh/cs_prog3_2024_api.git#readme",
   "dependencies": {
     "express": "^4.17.3",
     "pg": "^8.7.3"

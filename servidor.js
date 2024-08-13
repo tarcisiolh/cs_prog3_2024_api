@@ -114,5 +114,5 @@ sw.get('/listjogadores', function (req, res, next) {
 });
 
 sw.listen(4000, function () {
-    console.log('Server tá rodando meu chapa.. na Porta 4000');
+    console.log('Server tá na Porta 4000');
 });
