@@ -147,8 +147,7 @@ sw.post('/insertjogador', function (req, res, next) {
         } else {
 
             var q1 = {
-                text: 'insert into tb_jogador (nickname, senha, quantPontos, quantdinheiro, datacadastro, ' +
-                    ' situacao) ' +
+                text: 'insert into tb_jogador (nickname, senha, quantpontos, quantdinheiro, datacadastro, situacao) ' +
                     ' values ($1,$2,$3,$4,now(), $5) ' +
                     'returning nickname, senha, quantpontos, quantdinheiro, ' +
                     ' to_char(datacadastro, \'dd/mm/yyyy\') as datacadastro, ' +
@@ -159,12 +158,6 @@ sw.post('/insertjogador', function (req, res, next) {
                 req.body.quantdinheiro,
                 req.body.situacao == true ? "A" : "I"]
             }
-            var q2 = {
-                text: 'insert into tb_endereco (complemento, cep, nicknamejogador) values ($1, $2, $3) returning codigo, complemento, cep;',
-                values: [req.body.endereco.complemento,
-                req.body.endereco.cep,
-                req.body.nickname]
-            }
             console.log(q1);
 
             client.query(q1, function (err, result1) {
@@ -172,6 +165,12 @@ sw.post('/insertjogador', function (req, res, next) {
                     console.log('retornou 400 no insert q1');
                     res.status(400).send('{' + err + '}');
                 } else {
+                    var q2 = {
+                        text: 'insert into tb_endereco (complemento, cep, nicknamejogador) values ($1, $2, $3) returning codigo, complemento, cep;',
+                        values: [req.body.endereco.complemento,
+                        req.body.endereco.cep,
+                        req.body.nickname]
+                    }
                     client.query(q2, async function (err, result2) {
                         if (err) {
                             console.log('retornou 400 no insert q2');
@@ -223,13 +222,13 @@ sw.post('/updatejogador', function (req, res, next) {
         } else {
 
             var q1 = {
-                text: 'update tb_jogador set senha = $1, quantPontos = $2, quantdinheiro = $3, situacao = $4 where nickname = $5 ' +
+                text: 'update tb_jogador set senha = $1, quantpontos = $2, quantdinheiro = $3, situacao = $4 where nickname = $5 ' +
                     'returning nickname, senha, quantpontos, quantdinheiro, to_char(datacadastro, \'dd/mm/yyyy\') as datacadastro, situacao;',
                 values: [
                     req.body.senha,
                     req.body.quantpontos,
                     req.body.quantdinheiro,
-                    req.body.situacao == true ? "A" : "I",
+                    req.body.situacao,
                     req.body.nickname]
             }
             var q2 = {
@@ -264,7 +263,7 @@ sw.post('/updatejogador', function (req, res, next) {
 
                                     try {
 
-                                        await client.query('insert into tb_jogador_conquista_patente (codpatente, nickname) values ($1, $2)', [req.body.patentes[i].codigo, req.body.nickname])
+                                        await client.query('insert into tb_jogador_conquista_patente (codpatente, nickname) values ($1, $2)', [req.body.patentes[i].codpatente, req.body.nickname])
 
                                     } catch (err) {
 
